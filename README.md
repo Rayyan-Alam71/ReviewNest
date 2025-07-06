@@ -1,36 +1,68 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## Book Review App Starter Template
+
+>This is a starter template for a Book Review web app using **Next.js**, **Prisma**, and **NextAuth.js**. Easily adaptable for your own projects!
+
+---
+
+### Features
+- Next.js 14 App Router
+- Prisma ORM (with PostgreSQL)
+- NextAuth.js authentication (Google provider)
+- Environment variable support
+
+---
 
 ## Getting Started
 
-First, run the development server:
-
+### 1. Clone the repository
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone <your-repo-url>
+cd book-review
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. Install dependencies
+```bash
+npm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 3. Set up environment variables
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Copy `.env.sample` to `.env` and fill in your credentials:
+```bash
+cp .env.sample .env
+```
 
-## Learn More
+Edit `.env`:
+- `DATABASE_URL` – Your PostgreSQL connection string
+- `GOOGLE_CLIENT_ID` – Google OAuth client ID
+- `GOOGLE_CLIENT_SECRET` – Google OAuth client secret
+- `NEXTAUTH_SECRET` – A random string for NextAuth session encryption (use `openssl rand -base64 32` to generate one)
 
-To learn more about Next.js, take a look at the following resources:
+### 4. Set up the database
+```bash
+npx prisma migrate dev --name init
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 5. Start the development server
+```bash
+npm run dev
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## Useful Commands
+- `npx prisma studio` – Open Prisma Studio to view/edit your database
+- `npx prisma generate` – Regenerate Prisma client
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Folder Structure
+- `/app` – Next.js app directory
+- `/prisma` – Prisma schema and migrations
+- `/db/prisma.ts` – Prisma client instance
+- `/app/api/auth/[...nextauth]/route.ts` – NextAuth.js API route
+
+---
+
+## License
+MIT
