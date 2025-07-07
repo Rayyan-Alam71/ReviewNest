@@ -1,11 +1,9 @@
-'use client'
-import { getSession, signIn } from "next-auth/react";
 import Image from "next/image";
-
+import React from "react"
 export default function Home() {
   return (
-    <button onClick={()=>signIn()}>
-      Sign in
-    </button>
+    <div className="min-w-[100vw] min-h-[calc(100vh-5rem)]">
+      
+    </div>
   );
 }

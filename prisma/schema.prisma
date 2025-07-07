@@ -14,12 +14,10 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Book{
-  id    String    @id @default(uuid())
-  book_name   String   
-}
 model User {
   id            String          @id @default(cuid())
+  books          Book[]
+  reviews        Review[]
   name          String?
   email         String          @unique
   emailVerified DateTime?
@@ -87,3 +85,25 @@ model Authenticator {
  
   @@id([userId, credentialID])
 }
+
+model Book{
+  id    String    @id @default(uuid())
+  userId    String
+  user    User  @relation(fields: [userId], references: [id])
+  book_name   String   
+  author_name   String
+  description   String
+  imageUrl      String  @default("https://dhmckee.com/wp-content/uploads/2018/11/defbookcover-min.jpg")
+  reviews   Review[]
+}
+
+model Review {
+  id      String    @id  @default(uuid())
+  bookId    String    
+  userId    String
+  user      User      @relation(fields: [userId], references: [id])
+  book      Book      @relation(fields: [bookId], references: [id])
+  content   String
+  createdAt     DateTime    @default(now())
+}
+
