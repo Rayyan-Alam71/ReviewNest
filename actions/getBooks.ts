@@ -34,3 +34,24 @@ export const getMyBooks = async () =>{
         throw new Error("Error while retrieving my books.")
     }
 }
+export async function getBookDetail(bookId : string){
+    // @ts-ignore
+    const session = await getServerSession(authOptions)
+    if(!session?.user) throw new Error("User not authenticated")
+    
+    try{
+        const details = await prisma.book.findUnique({
+            where : {
+                id : bookId
+            },
+            include : {
+                reviews : true
+            }
+        })
+        console.log(details)
+        return details
+    }catch(e){
+        console.log("Error ocurred")
+        throw new Error("Error occurred while retreiving reviews")
+    }
+}

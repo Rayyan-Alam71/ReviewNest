@@ -42,6 +42,7 @@ const DisplayBooks = () => {
               author={book.author_name}
               description={book.description}
               imageUrl={book.imageUrl}
+              bookId = {book.id}
             />
           ))
         ) : (!loading &&
@@ -55,15 +56,19 @@ export default DisplayBooks
 
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
+import Link from "next/link";
+import { Textarea } from "@/components/ui/textarea";
 
 
-export function BookCard({ name, author, description, imageUrl }: {
+export function BookCard({ name, author, description, imageUrl, bookId }: {
   name: string,
+  bookId : string,
   author: string,
   description: string,
   imageUrl: string
 }) {
   const [showMore, setShowMore] = useState(false);
+  const [addReviewBlock, setAddReviewBlock] = useState<boolean>(false)
   const maxDescriptionLength = 50;
   const isLongDescription = description.length > maxDescriptionLength;
   const displayedDescription = showMore || !isLongDescription
@@ -97,12 +102,26 @@ export function BookCard({ name, author, description, imageUrl }: {
             {showMore ? "Show Less" : "Show More"}
           </Button>
         )}
-        <div className="w-full flex justify-end">
+        <div className="w-full flex justify-between">
           <Button size="sm" className="px-4 py-1 text-xs  cursor-pointer">
-            See Reviews
+            <Link href={`/review/${bookId}`}>See Reviews</Link> 
+          </Button>
+          <Button size="sm" className="px-4 py-1 text-xs  cursor-pointer" onClick={()=>setAddReviewBlock(true)}>
+            Add review
+            {/* add review should open to the /review/bookId page where on the right side there will be an Add review button*/}
           </Button>
         </div>
       </div>
     </Card>
   );
+}
+
+function AddReview(){
+  const [ review, setReview ]= useState<string>("")
+
+  return(
+    <div>
+      <Textarea  placeholder="Write your review." />
+    </div>
+  )
 }

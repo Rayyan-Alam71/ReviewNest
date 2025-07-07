@@ -31,7 +31,7 @@ const DisplayPublicBooks = () => {
 
         {(!loading && books && books.length!=0) ? (
             books.map((book)=>(
-                <BookCard key={book.id} name ={book.book_name} author={book.author_name} description={book.description} imageUrl={book.imageUrl}/>
+                <BookCard key={book.id} name ={book.book_name} author={book.author_name} description={book.description} imageUrl={book.imageUrl} bookId={book.id}/>
             ))
         ) : (  !loading &&
             <h3>No books found</h3>
