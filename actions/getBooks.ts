@@ -45,7 +45,11 @@ export async function getBookDetail(bookId : string){
                 id : bookId
             },
             include : {
-                reviews : true
+                reviews : {
+                    orderBy : {
+                        createdAt : "desc",
+                    }
+                }
             }
         })
         console.log(details)

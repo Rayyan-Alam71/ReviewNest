@@ -15,17 +15,16 @@ export interface Book {
 const DisplayBooks = () => {
     const [loading, setLoading] = useState<boolean>(true)
     const [myBooks, setMyBooks] = useState<Book[]>([])
-    
+    const [loadPage ,setLoadPage] = useState<boolean>(false)
     useEffect(()=>{
         async function fetchBooks(){
           // setLoading(true)
             const books = await getMyBooks()
-            console.log(books)
             setMyBooks(books)
             setLoading(false)
         }    
         fetchBooks()
-    },[])
+    },[loadPage])
 
     return (
       <div className="w-full min-h-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 px-16 py-18 my-4">
@@ -43,6 +42,8 @@ const DisplayBooks = () => {
               description={book.description}
               imageUrl={book.imageUrl}
               bookId = {book.id}
+              loadPage={loadPage}
+              setLoadPage={setLoadPage}
             />
           ))
         ) : (!loading &&
@@ -58,15 +59,20 @@ import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import Link from "next/link";
 import { Textarea } from "@/components/ui/textarea";
+import { deleteBook } from "@/actions/deleteBook";
+import { useRouter } from "next/navigation";
 
 
-export function BookCard({ name, author, description, imageUrl, bookId }: {
+function BookCard({ name, author, description, imageUrl, bookId , setLoadPage}: {
   name: string,
   bookId : string,
   author: string,
   description: string,
-  imageUrl: string
+  imageUrl: string,
+  loadPage : any
+  setLoadPage :React.Dispatch<React.SetStateAction<boolean>>
 }) {
+  const router = useRouter()
   const [showMore, setShowMore] = useState(false);
   const [addReviewBlock, setAddReviewBlock] = useState<boolean>(false)
   const maxDescriptionLength = 50;
@@ -103,12 +109,9 @@ export function BookCard({ name, author, description, imageUrl, bookId }: {
           </Button>
         )}
         <div className="w-full flex justify-between">
+          <AlertDialogDemo bookId= {bookId} setLoadPage={setLoadPage}/>
           <Button size="sm" className="px-4 py-1 text-xs  cursor-pointer">
             <Link href={`/review/${bookId}`}>See Reviews</Link> 
-          </Button>
-          <Button size="sm" className="px-4 py-1 text-xs  cursor-pointer" onClick={()=>setAddReviewBlock(true)}>
-            Add review
-            {/* add review should open to the /review/bookId page where on the right side there will be an Add review button*/}
           </Button>
         </div>
       </div>
@@ -125,3 +128,45 @@ function AddReview(){
     </div>
   )
 }
+
+
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
+
+export function AlertDialogDemo({bookId , setLoadPage} : {bookId : string,  setLoadPage : any}) {
+  const router = useRouter()
+  return (
+    <AlertDialog>
+      <AlertDialogTrigger asChild>
+        <Button variant="destructive" className="cursor-pointer">Delete Book</Button>
+      </AlertDialogTrigger>
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+          <AlertDialogDescription>
+            This action cannot be undone. This will permanently delete your
+            book and cannot be undone.
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <AlertDialogCancel>Cancel</AlertDialogCancel>
+          <AlertDialogAction  className="cursor-pointer" onClick={async ()=>{
+            await deleteBook(bookId)
+            // @ts-ignore
+            setLoadPage(prev=>!prev)
+          }}>Continue</AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
+  )
+}
+

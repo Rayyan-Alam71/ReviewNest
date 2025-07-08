@@ -101,9 +101,10 @@ model Review {
   id      String    @id  @default(uuid())
   bookId    String    
   userId    String
-  user      User      @relation(fields: [userId], references: [id])
-  book      Book      @relation(fields: [bookId], references: [id])
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  book      Book      @relation(fields: [bookId], references: [id], onDelete: Cascade)
   content   String
   createdAt     DateTime    @default(now())
+  creatorName   String?
 }
 
