@@ -37,7 +37,7 @@ import Link from "next/link"
 // }
 
 
-export function NavBar(){
+export default function NavBar(){
     const session = useSession()
     return(
         <nav className="sticky top-0 z-50 bg-gradient-to-br from-slate-50 via-indigo-50 to-purple-50">
