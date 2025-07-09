@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { getMyBooks } from '@/actions/getBooks'
 import { useEffect } from "react"
 import {SkeletonCard} from "@/components/SkeletonCard"
+import noBookImage from "../../public/error-illustration-1.svg"
 export interface Book {
     id : string;
     book_name : string;
@@ -27,13 +28,14 @@ const DisplayBooks = () => {
     },[loadPage])
 
     return (
-      <div className="w-full min-h-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 px-16 py-18 my-4">
+      <>
+      <div className="w-full h-calc[(100vh -4rem)] grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 px-16 py-18 my-4 ">
         {loading && [0,0,0,0].map(()=>(
           <div>
             <SkeletonCard/>
           </div>
         ))}
-        {(!loading && myBooks && myBooks.length !== 0) ? (
+        {(!loading && myBooks && myBooks.length !== 0) && (
           myBooks.map((book) => (
             <BookCard
               key={book.id}
@@ -45,11 +47,29 @@ const DisplayBooks = () => {
               loadPage={loadPage}
               setLoadPage={setLoadPage}
             />
+            
           ))
-        ) : (!loading &&
-          <h2>No book found</h2>
         )}
       </div>
+      {!loading && myBooks.length === 0 && 
+        <div className='flex flex-col items-center mb-10 '>
+          <Image
+            src={noBookImage}
+            width={250}
+            height={250}
+            alt="No data found"
+            className="object-contain"
+          />
+          <h2 className='text-lg sm:text-xl md:text-2xl'>No Books found</h2>
+         <div className='flex flex-col md:flex-row items-center gap-6 mt-8'>
+          <h2 className='text-lg sm:text-xl md:text-2xl'>Be the first one to add. </h2>
+          <Button variant={"default"} className='text-md bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg hover:from-indigo-500 hover:to-purple-500 hover:shadow-xl transition-all duration-200 rounded-lg px-5 py-2.5 font-medium' asChild>
+            <Link href="/add-book">Add Book</Link>
+          </Button>
+        </div>
+        </div>  
+      }
+      </>
     );
 }
 
@@ -75,14 +95,14 @@ function BookCard({ name, author, description, imageUrl, bookId , setLoadPage}: 
   const router = useRouter()
   const [showMore, setShowMore] = useState(false);
   const [addReviewBlock, setAddReviewBlock] = useState<boolean>(false)
-  const maxDescriptionLength = 50;
+  const maxDescriptionLength = 100;
   const isLongDescription = description.length > maxDescriptionLength;
   const displayedDescription = showMore || !isLongDescription
     ? description
     : description.slice(0, maxDescriptionLength) + "...";
 
   return (
-    <Card className="w-full max-w-[250px] mx-auto shadow-md rounded-lg overflow-hidden border border-border bg-white dark:bg-card flex flex-col items-center p-0 justify-between">
+    <Card className="my-2 w-full max-w-[250px] mx-auto rounded-lg overflow-hidden hover:bg-gray-50 transition-all duration-300 border border-gray-100 shadow-lg hover:shadow-xl dark:bg-card flex flex-col items-center p-0 justify-between">
       {/* Image section */}
       <div className="w-full h-36 bg-gray-100 flex items-center justify-center overflow-hidden">
         <img
@@ -98,7 +118,7 @@ function BookCard({ name, author, description, imageUrl, bookId , setLoadPage}: 
         <p className="text-xs text-muted-foreground leading-tight w-full whitespace-pre-line">
           {displayedDescription}
         </p>
-        {isLongDescription && (
+        {/* {isLongDescription && (
           <Button
             size="sm"
             variant="outline"
@@ -107,10 +127,10 @@ function BookCard({ name, author, description, imageUrl, bookId , setLoadPage}: 
           >
             {showMore ? "Show Less" : "Show More"}
           </Button>
-        )}
-        <div className="w-full flex justify-between">
+        )} */}
+        <div className="w-full flex justify-between mt-4">
           <AlertDialogDemo bookId= {bookId} setLoadPage={setLoadPage}/>
-          <Button size="sm" className="px-4 py-1 text-xs  cursor-pointer">
+          <Button size="sm" className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg hover:from-indigo-500 hover:to-purple-500 hover:shadow-xl transition-all duration-200 rounded-lg px-4 py-2.5 font-medium">
             <Link href={`/review/${bookId}`}>See Reviews</Link> 
           </Button>
         </div>
@@ -141,29 +161,32 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
+import NoBookFound from "@/components/NoBookFound";
+import Image from "next/image";
+import { MoveRightIcon } from "lucide-react";
 
 export function AlertDialogDemo({bookId , setLoadPage} : {bookId : string,  setLoadPage : any}) {
   const router = useRouter()
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button variant="destructive" className="cursor-pointer">Delete Book</Button>
+        <Button variant="destructive" size='sm' className="cursor-pointer">Delete Book</Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
           <AlertDialogDescription>
             This action cannot be undone. This will permanently delete your
-            book and cannot be undone.
+            book.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction  className="cursor-pointer" onClick={async ()=>{
+          <AlertDialogAction  className="cursor-pointer bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg hover:from-indigo-500 hover:to-purple-500 hover:shadow-xl transition-all duration-200 rounded-lg px-4 py-2.5 font-medium" onClick={async ()=>{
             await deleteBook(bookId)
             // @ts-ignore
             setLoadPage(prev=>!prev)
-          }}>Continue</AlertDialogAction>
+          }}>Yes, delete</AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

@@ -3,7 +3,7 @@ import DisplayPublicBooks from './DisplayPublicBooks'
 
 const page = () => {
   return (
-    <div>
+    <div className='h-calc[(100vh-5rem)]'>
       <DisplayPublicBooks/>
     </div>
   )

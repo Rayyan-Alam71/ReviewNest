@@ -64,7 +64,7 @@ const AddBook = () => {
                             <FormItem>
                             <FormLabel>Book Name</FormLabel>
                             <FormControl>
-                                <Input placeholder="Enter the name of the book." {...field} />
+                                <Input placeholder="Enter book's name" {...field} />
                             </FormControl>
                             <FormMessage />
                             </FormItem>
@@ -77,7 +77,7 @@ const AddBook = () => {
                             <FormItem>
                             <FormLabel>Author Name</FormLabel>
                             <FormControl>
-                                <Input placeholder="Enter the name of the book's author." {...field} />
+                                <Input placeholder="Enter author name" {...field} />
                             </FormControl>
                             <FormMessage />
                             </FormItem>
@@ -96,7 +96,7 @@ const AddBook = () => {
                             </FormItem>
                         )}
                     />
-                    <Button type="submit" disabled={loading} className="cursor-pointer">{loading ? (<p>Submitting...</p>) : (<p>Submit</p>)}</Button>
+                    <Button type="submit" disabled={loading} className="cursor-pointer text-sm bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg hover:from-indigo-500 hover:to-purple-500 hover:shadow-xl transition-all duration-200 rounded-lg px-5 py-2.5 font-medium">{loading ? (<p>Submitting...</p>) : (<p>Submit</p>)}</Button>
                 </form>
             </Form>
         </div>
@@ -114,6 +114,7 @@ function Imageupload(){
   const handleFileUpload = (files: File[]) => {
     setFiles(files);
     console.log(files);
+    // run logic to upload cover page
   };
  
   return (

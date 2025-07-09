@@ -13,7 +13,8 @@ const nextConfig: NextConfig = {
   // },
   images: {
     remotePatterns: [new URL('https://dhmckee.com/wp-content/uploads/**'),
-      new URL("https://www.eurekabookstore.com/public/uploads/**")
+      new URL("https://www.eurekabookstore.com/public/uploads/**"),
+      new URL('https://lh3.googleusercontent.com/**')
     ],
   },
 };

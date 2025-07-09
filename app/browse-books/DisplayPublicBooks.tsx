@@ -19,7 +19,7 @@ const DisplayPublicBooks = () => {
     },[])
         
     return (
-        <div className='w-full h-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 py-18 px-16'>
+        <div className='w-full h-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 py-18 px-16 bbg-gradient-to-br from-slate-50 via-indigo-50 to-purple-50'>
         {loading && [0,0,0,0].map(()=>(
             <div>
             <SkeletonCard/>
@@ -57,14 +57,14 @@ function BookCardForBrowseBook({ name, author, description, imageUrl, bookId }: 
 }) {
   const [showMore, setShowMore] = useState(false);
   const [addReviewBlock, setAddReviewBlock] = useState<boolean>(false)
-  const maxDescriptionLength = 50;
+  const maxDescriptionLength = 100;
   const isLongDescription = description.length > maxDescriptionLength;
   const displayedDescription = showMore || !isLongDescription
     ? description
     : description.slice(0, maxDescriptionLength) + "...";
 
   return (
-    <Card className="w-full max-w-[250px] mx-auto shadow-md rounded-lg overflow-hidden border border-border bg-white dark:bg-card flex flex-col items-center p-0 justify-between">
+    <Card className="w-full max-w-[250px] mx-auto bg-white hover:bg-gray-50 transition-all duration-300 border border-gray-100 shadow-lg hover:shadow-xl flex flex-col items-center p-0 justify-between">
       {/* Image section */}
       <div className="w-full h-36 bg-gray-100 flex items-center justify-center overflow-hidden">
         <img
@@ -80,7 +80,7 @@ function BookCardForBrowseBook({ name, author, description, imageUrl, bookId }: 
         <p className="text-xs text-muted-foreground leading-tight w-full whitespace-pre-line">
           {displayedDescription}
         </p>
-        {isLongDescription && (
+        {/* {isLongDescription && (
           <Button
             size="sm"
             variant="outline"
@@ -89,9 +89,9 @@ function BookCardForBrowseBook({ name, author, description, imageUrl, bookId }: 
           >
             {showMore ? "Show Less" : "Show More"}
           </Button>
-        )}
-        <div className="w-full flex justify-end">
-          <Button size="sm" className="px-4 py-1 text-xs  cursor-pointer">
+        )} */}
+        <div className="w-full flex justify-end pr-6 mt-4">
+          <Button size="sm" className="cursor-pointer text-sm bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg hover:from-indigo-500 hover:to-purple-500 hover:shadow-xl transition-all duration-200 rounded-lg px-5 py-2.5 font-medium">
             <Link href={`/review/${bookId}`}>See Reviews</Link> 
           </Button>
         </div>

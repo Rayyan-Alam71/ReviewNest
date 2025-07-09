@@ -9,103 +9,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 import {format , differenceInDays} from "date-fns"
-// const ReviewDisplay = ({bookId} : { bookId : string}) => {
 
-//     const [ bookDetail, setBookDetail ]= useState<Book>({
-//         book_name : "",
-//         id : "",
-//         userId : "",
-//         author_name : "",
-//         imageUrl : "",
-//         description : ""
-//     })
-
-//     useEffect(()=>{
-//         async function getDetails(){
-//             const details : any = await getBookDetail(bookId)
-//             setBookDetail(details)
-//         }
-//     getDetails()
-//     },[])
-//   return (
-//     <Card className="w-full max-w-md mx-auto shadow-lg rounded-lg overflow-hidden border border-gray-200 bg-white">
-//       {/* Image section - larger for better visibility */}
-//       <div className="w-full h-80 bg-gray-100 flex items-center justify-center overflow-hidden">
-//         <img
-//           src={bookDetail.imageUrl}
-//           alt={bookDetail.book_name}
-//           className="w-full h-full object-cover object-center"
-//         />
-//       </div>
-      
-//       {/* Content section */}
-//       <div className="w-full flex flex-col items-start p-6 gap-3">
-//         <h2 className="font-bold text-xl text-gray-800 w-full break-words">{bookDetail.book_name}</h2>
-//         <h4 className="font-medium text-sm text-gray-600 w-full break-words">by {bookDetail.author_name}</h4>
-//         <p className="text-sm text-gray-600 leading-relaxed w-full whitespace-pre-line">
-//           {displayedDescription}
-//         </p>
-//         {isLongDescription && (
-//           <Button
-//             size="sm"
-//             variant="outline"
-//             className="w-fit text-xs mt-2 px-3"
-//             onClick={() => setShowMore((prev) => !prev)}
-//           >
-//             {showMore ? "Show Less" : "Show More"}
-//           </Button>
-//         )}
-//       </div>
-//     </Card>
-//   );
-// }
-
-// export default ReviewDisplay
-
-// function BookDetailCard({ name, author, description, imageUrl }: {
-//   name: string,
-//   author: string,
-//   description: string,
-//   imageUrl: string
-// }) {
-//   const [showMore, setShowMore] = useState(false);
-//   const maxDescriptionLength = 50;
-//   const isLongDescription = description.length > maxDescriptionLength;
-//   const displayedDescription = showMore || !isLongDescription
-//     ? description
-//     : description.slice(0, maxDescriptionLength) + "...";
-
-//   return (
-//     <Card className="w-full max-w-[250px] mx-auto shadow-md rounded-lg overflow-hidden border border-border bg-white dark:bg-card flex flex-col items-center p-0 justify-between">
-//       {/* Image section */}
-//       <div className="w-full h-36 bg-gray-100 flex items-center justify-center overflow-hidden">
-//         <img
-//           src={imageUrl}
-//           alt={name}
-//           className="w-full h-full object-contain object-center"
-//         />
-//       </div>
-//       {/* Content section */}
-//       <div className="w-full flex flex-col items-start p-3 gap-1 flex-1">
-//         <h2 className="font-bold text-base text-primary w-full break-words whitespace-pre-line">{name}</h2>
-//         <h4 className="font-medium text-xs text-muted-foreground w-full break-words whitespace-pre-line">by {author}</h4>
-//         <p className="text-xs text-muted-foreground leading-tight w-full whitespace-pre-line">
-//           {displayedDescription}
-//         </p>
-//         {isLongDescription && (
-//           <Button
-//             size="sm"
-//             variant="outline"
-//             className="w-fit text-xs mt-1 px-2"
-//             onClick={() => setShowMore((prev) => !prev)}
-//           >
-//             {showMore ? "Show Less" : "Show More"}
-//           </Button>
-//         )}
-//       </div>
-//     </Card>
-//   );
-// }
 
 
 const ReviewDisplay = ({ bookId } : {bookId : string}) => {
@@ -140,10 +44,10 @@ const ReviewDisplay = ({ bookId } : {bookId : string}) => {
     fetch()
   },[loadPage])
   return (
-    <div className='w-full h-full bg-gray-50 '>
-      <div className='px-16 py-14 flex gap-8 h-4/5'>
+    <div className='w-full bg-gray-50'>
+      <div className='px-16 py-14 flex gap-8 h-screen overflow-hidden'>
         {/* Left Half - Book Details */}
-        <div className='w-1/2 flex flex-col items-center'>
+        <div className='w-1/2 flex flex-col items-center overflow-y-auto'>
           <BookDetailCard
             name={bookDetail.book_name}
             author={bookDetail.author_name}
@@ -152,10 +56,10 @@ const ReviewDisplay = ({ bookId } : {bookId : string}) => {
           />
         </div>
         {/* Right Half - Reviews */}
-        <div className='w-1/2 flex flex-col'>
+        <div className='w-1/2 flex flex-col h-full'>
         <div className='flex justify-between px-12 items-center'>
-          <h2 className='text-2xl font-bold mb-6 text-gray-800'>Reviews By Readers</h2>
-          <Button className="cursor-pointer mb-3" onClick={async ()=>{
+          <h2 className='text-2xl font-medium mb-6 text-gray-800'>Reviews By Readers</h2>
+          <Button className="cursor-pointer text-sm bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg hover:from-indigo-500 hover:to-purple-500 hover:shadow-xl transition-all duration-200 rounded-lg px-5 py-2.5 font-medium mb-3" onClick={async ()=>{
             console.log(reviewContent)
             if(!addReviewToggle) setAddReviewToggle(true)
             else { 
@@ -168,7 +72,7 @@ const ReviewDisplay = ({ bookId } : {bookId : string}) => {
             }
           }}>{addReviewToggle ? (loading ? <p>Adding...</p>: <p>Submit</p>) : <p>Add Review</p>}</Button>
         </div>
-          <div className='flex-1 overflow-y-auto pr-4 space-y-4 max-h-[calc(100vh-200px)]'>
+          <div className='flex-1 overflow-y-auto pr-4 space-y-4 h-full'>
             {addReviewToggle && (
               <Textarea placeholder='Write your review...' onChange={(e)=>setReviewContent(e.target.value)}/>
             )}
@@ -180,7 +84,7 @@ const ReviewDisplay = ({ bookId } : {bookId : string}) => {
                 <ReviewCard key={review.id} review={review} />
               ))
               :( !reviewLoading && 
-                <h3>No Reviews Made</h3>
+                <div className='w-full h-1/2 flex justify-center items-center text-xl font-semibold'>No Reviews Found</div>
               )
             }
           </div>
@@ -243,10 +147,10 @@ function ReviewCard({ review } :any) {
   const reviewDate = new Date(review.createdAt)
   const daysAgo = differenceInDays(new Date(), reviewDate)
   return (
-    <Card className="p-4 border border-gray-200 bg-white shadow-sm">
+    <Card className="p-4 border border-gray-200 bg-white shadow-sm ">
       <div className="flex items-center justify-between mb-2">
         <div className="flex items-center gap-2">
-          <h4 className="font-semibold text-sm text-gray-800">{review.creatorName || "anonymous"}</h4>
+          <h4 className="font-semibold text-sm text-gray-600">{review.creatorName || "anonymous"}</h4>
           {/* <div className="flex">
             {renderStars(review.rating)}
           </div> */}
@@ -257,7 +161,7 @@ function ReviewCard({ review } :any) {
             : format(reviewDate, "MMM d, yyyy")}
         </span>
       </div>
-      <p className="text-sm text-gray-600 leading-relaxed">{review.content}</p>
+      <p className="text-sm text-gray-700 leading-relaxed">{review.content}</p>
     </Card>
   );
 }

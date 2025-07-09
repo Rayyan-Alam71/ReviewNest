@@ -4,9 +4,8 @@ import ReviewDisplay from './ReviewDisplay';
 const page = async ({params} : {params : Promise<{bookId : string}>}) => {
     
     const { bookId }  : {bookId : string} = await params
-    // const bookDetail = await getBookDetail(bookId); 
     return (
-        <div className='max-w-screen min-h-[calc(100vh-5rem)] overflow-y-auto'>
+        <div className='max-w-screen '>
             <ReviewDisplay bookId={bookId}/>
         </div>
     )
