@@ -1,12 +1,3 @@
-// import Image from "next/image";
-// import React from "react"
-// export default function Home() {
-//   return (
-//     <div className="min-w-[100vw] min-h-[calc(100vh-5rem)]">
-      
-//     </div>
-//   );
-// }
 import React from 'react';
 import { BookOpen, Users, Star, MessageCircle, Search, TrendingUp } from 'lucide-react';
 import Link from 'next/link';
@@ -17,7 +8,7 @@ export default function Home() {
       {/* Hero Section */}
       <section className="relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-blue-50/30 to-purple-50/30"></div>
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-20">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-20">
           <div className="text-center">
             <div className="mb-12">
               <div className="inline-flex items-center justify-center w-24 h-24 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-3xl mb-8 shadow-lg">
@@ -25,14 +16,14 @@ export default function Home() {
               </div>
             </div>
             <h1 className="text-6xl md:text-8xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-[#1c2a41] mb-8">
-              Review Book
+              ReviewNest
             </h1>
             <p className="text-xl md:text-2xl text-gray-600 mb-12 max-w-3xl mx-auto leading-relaxed">
               Discover your next favorite read through authentic reviews from passionate readers worldwide
             </p>
             <div className="flex flex-col sm:flex-row gap-6 justify-center mb-16">
               <button className="px-10 py-5 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-xl font-semibold text-lg shadow-lg hover:from-indigo-500 hover:to-purple-500 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
-                Start Reading Reviews
+                <Link href={'/browse-books'}>Start Reading Reviews</Link> 
               </button>
               <button className="px-10 py-5 bg-white border-2 border-indigo-500 text-indigo-600 rounded-xl font-semibold text-lg hover:bg-indigo-50 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 cursor-pointer">
                 <Link href={'/add-book'}>Add your First Book</Link>
@@ -46,7 +37,7 @@ export default function Home() {
       <section className="py-24 bg-white/60">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-20">
-            <h2 className="text-5xl font-bold text-gray-800 mb-6">Why Choose Review Book?</h2>
+            <h2 className="text-5xl font-bold text-gray-800 mb-6">Why Choose ReviewNest ?</h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
               Join a community of book lovers sharing honest, thoughtful reviews
             </p>
@@ -165,7 +156,7 @@ export default function Home() {
             Join thousands of readers sharing their favorite books and honest reviews
           </p>
           <button className="px-12 py-5 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-xl font-semibold text-lg shadow-lg hover:from-indigo-500 hover:to-purple-500 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
-            Get Started Today
+            <Link href={'/browse-books'}>Get Started Today</Link>  
           </button>
         </div>
       </section>

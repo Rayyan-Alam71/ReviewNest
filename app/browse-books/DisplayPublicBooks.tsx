@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react'
 import { Book } from '../generated/prisma'
 import { getBooks } from '@/actions/getBooks'
 import { SkeletonCard } from '@/components/SkeletonCard'
-
+import noBookImage from "../../public/error-illustration-1.svg"
 const DisplayPublicBooks = () => {
     const [ books, setBooks ] = useState<Book[]>()
     const [loading, setLoading ] = useState<boolean>(false)
@@ -19,7 +19,14 @@ const DisplayPublicBooks = () => {
     },[])
         
     return (
+      <>
+      <div className='w-3/4 flex justify-end pt-6'>
+        <Button size="sm" className="cursor-pointer text-sm bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg hover:from-indigo-500 hover:to-purple-500 hover:shadow-xl transition-all duration-200 rounded-lg px-5 py-2.5 font-medium">
+            <Link href={`/add-book`}>Add Book</Link> 
+        </Button>
+      </div>
         <div className='w-full h-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 py-18 px-16 bbg-gradient-to-br from-slate-50 via-indigo-50 to-purple-50'>
+        
         {loading && [0,0,0,0].map(()=>(
             <div>
             <SkeletonCard/>
@@ -28,14 +35,32 @@ const DisplayPublicBooks = () => {
             </div>
         ))}
 
-        {(!loading && books && books.length!=0) ? (
+        {(!loading && books && books.length!=0) && (
             books.map((book)=>(
                 <BookCardForBrowseBook key={book.id} name ={book.book_name} author={book.author_name} description={book.description} imageUrl={book.imageUrl} bookId={book.id}/>
             ))
-        ) : (  !loading &&
-            <h3>No books found</h3>
         )}
+        
         </div>
+         {!loading &&  books?.length === 0 && 
+            <div className='flex flex-col items-center mb-10 '>
+              <Image
+                src={noBookImage}
+                width={250}
+                height={250}
+                alt="No data found"
+                className="object-contain"
+              />
+              <h2 className='text-lg sm:text-xl md:text-2xl'>No Books found</h2>
+              <div className='flex flex-col md:flex-row items-center gap-6 mt-8'>
+              <h2 className='text-lg sm:text-xl md:text-2xl'>Be the first one to add. </h2>
+              <Button variant={"default"} className='text-md bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg hover:from-indigo-500 hover:to-purple-500 hover:shadow-xl transition-all duration-200 rounded-lg px-5 py-2.5 font-medium' asChild>
+                <Link href="/add-book">Add Book</Link>
+              </Button>
+            </div>
+            </div>  
+          }
+       </> 
     )
 }
 
@@ -46,6 +71,7 @@ import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import Link from "next/link";
 import { Textarea } from "@/components/ui/textarea";
+import Image from 'next/image'
 
 
 function BookCardForBrowseBook({ name, author, description, imageUrl, bookId }: {

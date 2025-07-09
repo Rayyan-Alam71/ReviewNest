@@ -53,7 +53,7 @@ const AddBook = () => {
   }
 
   return (
-    <div className='max-w-full w-2/3 grid md:grid-cols-2 grid-cols-1 gap-4'>
+    <div className='max-w-full w-2/3 grid md:grid-cols-2 grid-cols-1 gap-4 mb-14'>
         <div className="w-4/5">
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 [&_*]:text-[1rem] flex flex-col gap-2">

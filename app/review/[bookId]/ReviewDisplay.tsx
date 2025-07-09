@@ -45,7 +45,7 @@ const ReviewDisplay = ({ bookId } : {bookId : string}) => {
   },[loadPage])
   return (
     <div className='w-full bg-gray-50'>
-      <div className='px-16 py-14 flex gap-8 h-screen overflow-hidden'>
+      <div className='px-16 py-14 flex gap-8 h-screen overflow-y-auto'>
         {/* Left Half - Book Details */}
         <div className='w-1/2 flex flex-col items-center overflow-y-auto'>
           <BookDetailCard
@@ -103,7 +103,7 @@ function BookDetailCard({ name, author, description, imageUrl } : any) {
     : description.slice(0, maxDescriptionLength) + "...";
 
   return (
-    <Card className="w-full max-w-md mx-auto shadow-lg rounded-lg overflow-hidden border border-gray-200 bg-white">
+    <Card className="w-full max-w-md mx-auto shadow-lg rounded-lg overflow-y-auto border border-gray-200 bg-white">
       {/* Image section - larger for better visibility */}
       <div className="w-full h-80 bg-gray-100 flex items-center justify-center overflow-hidden">
         <img

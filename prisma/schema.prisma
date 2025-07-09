@@ -95,6 +95,7 @@ model Book{
   description   String
   imageUrl      String  @default("https://dhmckee.com/wp-content/uploads/2018/11/defbookcover-min.jpg")
   reviews   Review[]
+  createdAt   DateTime    @default(now())
 }
 
 model Review {

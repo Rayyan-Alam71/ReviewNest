@@ -48,7 +48,7 @@ export function NavBar(){
                             <BookOpen className="w-6 h-6 text-white" />
                         </div>
                             <a href="/" className="text-2xl font-bold text-[#1e293b] cursor-pointer transition-all duration-200 ">
-                                Review Book
+                                ReviewNest
                             </a>
                         </div>
                     
