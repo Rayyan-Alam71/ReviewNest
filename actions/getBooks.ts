@@ -3,8 +3,10 @@
 import { prisma } from "@/db/prisma"
 import { authOptions } from "@/lib/auth"
 import { getServerSession } from "next-auth"
+import { unstable_noStore } from "next/cache"
 
 export const getBooks = async () =>{
+    unstable_noStore();
     // @ts-ignore
     const session = await getServerSession(authOptions)
     if(!session?.user) throw new Error("User not authenticated")
@@ -13,11 +15,13 @@ export const getBooks = async () =>{
         const books = await prisma.book.findMany({})
         return books;
     }catch(e){
+        console.log("Error  occurred in getBooks : "+ e)
         throw new Error("Error while retrieving books")
     }
 }
 
 export const getMyBooks = async () =>{
+    unstable_noStore();
     // @ts-ignore
     const session = await getServerSession(authOptions)
     if(!session?.user) throw new Error("User not authenticated")
@@ -35,6 +39,7 @@ export const getMyBooks = async () =>{
     }
 }
 export async function getBookDetail(bookId : string){
+    unstable_noStore();
     // @ts-ignore
     const session = await getServerSession(authOptions)
     if(!session?.user) throw new Error("User not authenticated")
@@ -52,7 +57,6 @@ export async function getBookDetail(bookId : string){
                 }
             }
         })
-        console.log(details)
         return details
     }catch(e){
         console.log("Error ocurred")

@@ -2,8 +2,10 @@
 import { prisma } from "@/db/prisma"
 import { authOptions } from "@/lib/auth"
 import { getServerSession } from "next-auth"
+import { unstable_noStore } from "next/cache"
 
 export const addReview = async (bookId : string, content : string) =>{
+    unstable_noStore();
     // @ts-ignore
     const session = await getServerSession(authOptions)
     if(!session?.user) throw new Error("User not authenticated")
