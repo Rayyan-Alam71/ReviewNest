@@ -1,7 +1,27 @@
 import { prisma } from "@/db/prisma";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import NextAuth from "next-auth"
-import GoogleProvider from "next-auth/providers/google";
+import { Adapter } from "next-auth/adapters";
+import GoogleProvider, { GoogleProfile } from "next-auth/providers/google";
+import { OAuthConfig } from "next-auth/providers/oauth";
+
+// interface AuthOption  {
+//     adapter: Adapter;
+//     session: {
+//         strategy: string;
+//     };
+//     providers: OAuthConfig<GoogleProfile>[];
+//     secret: string;
+//     callbacks: {
+//         jwt({ token, user }: any): Promise<{
+//             id: string;
+//             name: string | null;
+//             email: string;
+//             picture: string | null;
+//         }>;
+//         session({ token, session }: any): Promise<any>;
+//     };
+// }
 
 export const authOptions = {
   // Configure one or more authentication providers

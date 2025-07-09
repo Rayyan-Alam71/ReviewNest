@@ -3,8 +3,10 @@
 import { prisma } from "@/db/prisma"
 import { authOptions } from "@/lib/auth"
 import { getServerSession } from "next-auth"
+import { unstable_noStore } from "next/cache";
 
 export async function deleteBook(bookId : string ){
+    unstable_noStore();
     // @ts-ignore
     const session = await getServerSession(authOptions)
     if(!session?.user){
