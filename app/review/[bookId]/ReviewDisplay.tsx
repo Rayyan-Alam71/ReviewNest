@@ -1,11 +1,9 @@
 "use client"
 import { getBookDetail } from '@/actions/getBooks'
 import { addReview } from '@/actions/review'
-import { Book } from '@/app/generated/prisma'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { Textarea } from '@/components/ui/textarea'
-import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 import {format , differenceInDays} from "date-fns"

@@ -1,7 +1,6 @@
 'use client'
 
 import React, { useState } from 'react'
-import { Book } from '../generated/prisma'
 import noBookImage from "../../public/error-illustration-1.svg"
 const DisplayPublicBooks = ({booksData} : {booksData : Book[]}) => {
 
@@ -53,6 +52,7 @@ import { Card } from "@/components/ui/card"
 import Link from "next/link";
 import { Textarea } from "@/components/ui/textarea";
 import Image from 'next/image'
+import { Book } from '@prisma/client'
 
 
 function BookCardForBrowseBook({ name, author, description, imageUrl, bookId }: {
