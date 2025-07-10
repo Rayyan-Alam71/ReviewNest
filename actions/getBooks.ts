@@ -12,7 +12,11 @@ export const getBooks = async () =>{
     if(!session?.user) throw new Error("User not authenticated")
     
     try{
-        const books = await prisma.book.findMany({})
+        const books = await prisma.book.findMany({
+            orderBy : {
+                createdAt  :'desc'
+            }
+        })
         return books;
     }catch(e){
         console.log("Error  occurred in getBooks : "+ e)

@@ -13,29 +13,14 @@ export interface Book {
     imageUrl : string
 }
 
-const DisplayBooks = () => {
-    const [loading, setLoading] = useState<boolean>(true)
-    const [myBooks, setMyBooks] = useState<Book[]>([])
+const DisplayBooks = ({myBooksData} : {myBooksData : Book[]}) => {
+    const [myBooks, setMyBooks] = useState<Book[]>(myBooksData)
     const [loadPage ,setLoadPage] = useState<boolean>(false)
-    useEffect(()=>{
-        async function fetchBooks(){
-          // setLoading(true)
-            const books = await getMyBooks()
-            setMyBooks(books)
-            setLoading(false)
-        }    
-        fetchBooks()
-    },[loadPage])
 
     return (
       <>
       <div className="w-full h-calc[(100vh -4rem)] grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 px-16 py-18 my-4 ">
-        {loading && [0,0,0,0].map(()=>(
-          <div>
-            <SkeletonCard/>
-          </div>
-        ))}
-        {(!loading && myBooks && myBooks.length !== 0) && (
+        {(myBooks && myBooks.length !== 0) && (
           myBooks.map((book) => (
             <BookCard
               key={book.id}
@@ -51,7 +36,7 @@ const DisplayBooks = () => {
           ))
         )}
       </div>
-      {!loading && myBooks.length === 0 && 
+      {myBooks.length === 0 && 
         <div className='flex flex-col items-center mb-10 '>
           <Image
             src={noBookImage}
@@ -61,8 +46,8 @@ const DisplayBooks = () => {
             className="object-contain"
           />
           <h2 className='text-lg sm:text-xl md:text-2xl'>No Books found</h2>
-         <div className='flex flex-col md:flex-row items-center gap-6 mt-8'>
-          <h2 className='text-lg sm:text-xl md:text-2xl'>Be the first one to add. </h2>
+         <div className='flex flex-col md:flex-row items-center gap-4 mt-8'>
+          <h2 className='text-lg sm:text-xl md:text-2xl'>Add Your First Book </h2>
           <Button variant={"default"} className='text-md bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg hover:from-indigo-500 hover:to-purple-500 hover:shadow-xl transition-all duration-200 rounded-lg px-5 py-2.5 font-medium' asChild>
             <Link href="/add-book">Add Book</Link>
           </Button>
@@ -118,16 +103,6 @@ function BookCard({ name, author, description, imageUrl, bookId , setLoadPage}: 
         <p className="text-xs text-muted-foreground leading-tight w-full whitespace-pre-line">
           {displayedDescription}
         </p>
-        {/* {isLongDescription && (
-          <Button
-            size="sm"
-            variant="outline"
-            className="w-fit text-xs mt-1 px-2"
-            onClick={() => setShowMore((prev) => !prev)}
-          >
-            {showMore ? "Show Less" : "Show More"}
-          </Button>
-        )} */}
         <div className="w-full flex justify-between mt-4">
           <AlertDialogDemo bookId= {bookId} setLoadPage={setLoadPage}/>
           <Button size="sm" className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg hover:from-indigo-500 hover:to-purple-500 hover:shadow-xl transition-all duration-200 rounded-lg px-4 py-2.5 font-medium">
@@ -138,17 +113,6 @@ function BookCard({ name, author, description, imageUrl, bookId , setLoadPage}: 
     </Card>
   );
 }
-
-function AddReview(){
-  const [ review, setReview ]= useState<string>("")
-
-  return(
-    <div>
-      <Textarea  placeholder="Write your review." />
-    </div>
-  )
-}
-
 
 import {
   AlertDialog,
@@ -161,11 +125,9 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
-import NoBookFound from "@/components/NoBookFound";
 import Image from "next/image";
-import { MoveRightIcon } from "lucide-react";
 
-export function AlertDialogDemo({bookId , setLoadPage} : {bookId : string,  setLoadPage : any}) {
+function AlertDialogDemo({bookId , setLoadPage} : {bookId : string,  setLoadPage : any}) {
   const router = useRouter()
   return (
     <AlertDialog>
@@ -184,8 +146,7 @@ export function AlertDialogDemo({bookId , setLoadPage} : {bookId : string,  setL
           <AlertDialogCancel>Cancel</AlertDialogCancel>
           <AlertDialogAction  className="cursor-pointer bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg hover:from-indigo-500 hover:to-purple-500 hover:shadow-xl transition-all duration-200 rounded-lg px-4 py-2.5 font-medium" onClick={async ()=>{
             await deleteBook(bookId)
-            // @ts-ignore
-            setLoadPage(prev=>!prev)
+            router.refresh()
           }}>Yes, delete</AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
