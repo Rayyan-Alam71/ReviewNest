@@ -1,22 +1,11 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Book } from '../generated/prisma'
-import { getBooks } from '@/actions/getBooks'
-import { SkeletonCard } from '@/components/SkeletonCard'
 import noBookImage from "../../public/error-illustration-1.svg"
-const DisplayPublicBooks = () => {
-    const [ books, setBooks ] = useState<Book[]>()
-    const [loading, setLoading ] = useState<boolean>(false)
-    useEffect(()=>{
-        async function fetchBooks(){
-            setLoading(true)
-            const books_res = await getBooks()
-            setBooks(books_res)
-            setLoading(false)
-        }
-        fetchBooks()
-    },[])
+const DisplayPublicBooks = ({booksData} : {booksData : Book[]}) => {
+
+    const [ books, setBooks ] = useState<Book[]>(booksData)
         
     return (
       <>
@@ -26,23 +15,15 @@ const DisplayPublicBooks = () => {
         </Button>
       </div>
         <div className='w-full h-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 py-18 px-16 bbg-gradient-to-br from-slate-50 via-indigo-50 to-purple-50'>
-        
-        {loading && [0,0,0,0].map(()=>(
-            <div>
-            <SkeletonCard/>
-            <br/><br/><br/>
-            <SkeletonCard/>
-            </div>
-        ))}
-
-        {(!loading && books && books.length!=0) && (
+       
+        {(books && books.length!=0) && (
             books.map((book)=>(
                 <BookCardForBrowseBook key={book.id} name ={book.book_name} author={book.author_name} description={book.description} imageUrl={book.imageUrl} bookId={book.id}/>
             ))
         )}
         
         </div>
-         {!loading &&  books?.length === 0 && 
+         {!books || books?.length === 0 && 
             <div className='flex flex-col items-center mb-10 '>
               <Image
                 src={noBookImage}
