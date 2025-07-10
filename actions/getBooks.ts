@@ -35,6 +35,9 @@ export const getMyBooks = async () =>{
             where  : {
                 // @ts-ignore
                 userId : session.user.id
+            },
+            orderBy:{
+                createdAt : 'desc'
             }
         })
         return myBooks;

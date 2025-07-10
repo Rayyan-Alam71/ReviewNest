@@ -1,5 +1,5 @@
 import React from 'react'
-import DisplayBooks from './DisplayBooks'
+import {DisplayBooks} from './DisplayBooks'
 import { getMyBooks } from '@/actions/getBooks'
 import { unstable_noStore } from 'next/cache'
 
@@ -8,7 +8,7 @@ const page = async () => {
   const myBooks = await getMyBooks()
   return (
     <div className='w-screen h-calc[(100vh-4rempx)] '>
-      <DisplayBooks myBooksData={myBooks}/>
+      <DisplayBooks myBooks={myBooks}/>
     </div>
   )
 }
