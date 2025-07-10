@@ -7,7 +7,7 @@ const page = async () => {
   unstable_noStore()
   const myBooks = await getMyBooks()
   return (
-    <div className='w-screen h-calc[(100vh-4rempx)] '>
+    <div className='w-screen h-calc[(100vh-4rempx)] bg-gradient-to-br from-slate-100 to-bg-indigo-50'>
       <DisplayBooks myBooks={myBooks}/>
     </div>
   )

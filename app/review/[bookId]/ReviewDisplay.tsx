@@ -43,9 +43,9 @@ const ReviewDisplay = ({ bookId } : {bookId : string}) => {
   },[loadPage])
   return (
     <div className='w-full bg-gray-50'>
-      <div className='px-16 py-14 flex gap-8 h-screen overflow-y-auto'>
+      <div className='py-14 mx-10 flex flex-col lg:flex-row justify-center items-center  gap-12 h-screen overflow-y-auto'>
         {/* Left Half - Book Details */}
-        <div className='w-1/2 flex flex-col items-center overflow-y-auto'>
+        <div className='w-full lg:w-1/2 flex flex-col items-center overflow-y-auto'>
           <BookDetailCard
             name={bookDetail.book_name}
             author={bookDetail.author_name}
@@ -54,9 +54,9 @@ const ReviewDisplay = ({ bookId } : {bookId : string}) => {
           />
         </div>
         {/* Right Half - Reviews */}
-        <div className='w-1/2 flex flex-col h-full'>
-        <div className='flex justify-between px-12 items-center'>
-          <h2 className='text-2xl font-medium mb-6 text-gray-800'>Reviews By Readers</h2>
+        <div className='w-full lg:w-1/2 flex flex-col h-full'>
+        <div className='flex justify-between px-4 md:px-8 lg:px-12 items-center'>
+          <h2 className='text-xl md:text-2xl font-medium mb-6 text-gray-800'>Reader's POV</h2>
           <Button className="cursor-pointer text-sm bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg hover:from-indigo-500 hover:to-purple-500 hover:shadow-xl transition-all duration-200 rounded-lg px-5 py-2.5 font-medium mb-3" onClick={async ()=>{
             console.log(reviewContent)
             if(!addReviewToggle) setAddReviewToggle(true)
@@ -68,7 +68,7 @@ const ReviewDisplay = ({ bookId } : {bookId : string}) => {
               setReviewContent("")
               setLoadPage(!loadPage)
             }
-          }}>{addReviewToggle ? (loading ? <p>Adding...</p>: <p>Submit</p>) : <p>Add Review</p>}</Button>
+          }}>{addReviewToggle ? (loading ? <p className='text-sm md:text-md '>Adding...</p>: <p className='text-sm md:text-md '>Submit</p>) : <p className='text-sm md:text-md '>Add Review</p>}</Button>
         </div>
           <div className='flex-1 overflow-y-auto pr-4 space-y-4 h-full'>
             {addReviewToggle && (
@@ -82,7 +82,7 @@ const ReviewDisplay = ({ bookId } : {bookId : string}) => {
                 <ReviewCard key={review.id} review={review} />
               ))
               :( !reviewLoading && 
-                <div className='w-full h-1/2 flex justify-center items-center text-xl font-semibold'>No Reviews Found</div>
+                <div className='w-full h-1/2 flex justify-center items-center text-lg md:text-xl text-gray-600 font-semibold'>No Reviews Found</div>
               )
             }
           </div>
@@ -113,10 +113,10 @@ function BookDetailCard({ name, author, description, imageUrl } : any) {
       
       {/* Content section */}
       <div className="w-full flex flex-col items-start p-6 gap-3">
-        <h2 className="font-bold text-xl text-gray-800 w-full break-words">{name}</h2>
-        <h4 className="font-medium text-sm text-gray-600 w-full break-words">by {author}</h4>
+        <h2 className="font-bold text-xl text-gray-800 w-full break-words">{name.charAt(0).toUpperCase() + name.slice(1)}</h2>
+        <h4 className="font-medium text-sm text-gray-600 w-full break-words">by {author.charAt(0).toUpperCase() + author.slice(1)}</h4>
         <p className="text-sm text-gray-600 leading-relaxed w-full whitespace-pre-line">
-          {displayedDescription}
+          {displayedDescription.charAt(0).toUpperCase() + displayedDescription.slice(1)}
         </p>
         {isLongDescription && (
           <Button
@@ -148,7 +148,7 @@ function ReviewCard({ review } :any) {
     <Card className="p-4 border border-gray-200 bg-white shadow-sm ">
       <div className="flex items-center justify-between mb-2">
         <div className="flex items-center gap-2">
-          <h4 className="font-semibold text-sm text-gray-600">{review.creatorName || "anonymous"}</h4>
+          <h4 className="font-semibold text-sm text-gray-600">{review.creatorName.charAt(0).toUpperCase()+review.creatorName.slice(1) || "anonymous"}</h4>
           {/* <div className="flex">
             {renderStars(review.rating)}
           </div> */}
