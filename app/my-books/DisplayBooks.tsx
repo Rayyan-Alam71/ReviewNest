@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import noBookImage from "../../public/error-illustration-1.svg"
 import {
   AlertDialog,
   AlertDialogAction,
@@ -17,6 +18,7 @@ import { unstable_noStore } from "next/cache";
 import { deleteBook } from "@/actions/deleteBook";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 
 // Mock data for preview
 const mockBooks = [
@@ -74,15 +76,15 @@ export const DisplayBooks = ({ myBooks }: { myBooks: Book[] }) => {
       
       {/* No Books Found - Responsive layout */}
       {myBooks.length === 0 && 
-        <div className='flex flex-col items-center mb-10 px-4 sm:px-6'>
-          <div className="w-32 h-32 sm:w-48 sm:h-48 md:w-64 md:h-64 bg-gray-100 rounded-lg flex items-center justify-center mb-4">
-            <span className="text-gray-400 text-sm sm:text-base">No Image</span>
+        <div className='flex flex-col items-center px-4 sm:px-6'>
+          <div className="w-32 h-32 sm:w-48 sm:h-48 md:w-64 md:h-64 rounded-lg flex items-center justify-center mb-4">
+          <img src='/error-illustration-1.svg' alt="No book" className="w-full h-full"/>
           </div>
           <h2 className='text-base sm:text-lg md:text-xl lg:text-2xl text-center'>No Books found</h2>
           <div className='flex flex-col sm:flex-row items-center gap-4 sm:gap-6 mt-6 sm:mt-8'>
             <h2 className='text-base sm:text-lg md:text-xl lg:text-2xl text-center'>Add Your First Book</h2>
             <Button className='text-sm sm:text-md bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg hover:from-indigo-500 hover:to-purple-500 hover:shadow-xl transition-all duration-200 rounded-lg px-4 sm:px-5 py-2 sm:py-2.5 font-medium'>
-              Add Book
+              <Link href={'/add-book'}>Add Book</Link>
             </Button>
           </div>
         </div>  
