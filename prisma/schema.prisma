@@ -92,7 +92,8 @@ model Book{
   book_name   String   
   author_name   String
   description   String
-  imageUrl      String  @default("https://dhmckee.com/wp-content/uploads/2018/11/defbookcover-min.jpg")
+  // 
+  imageUrl      String  @default("https://cdn.vectorstock.com/i/1000x1000/58/36/teared-paper-blue-book-cover-vector-16375836.webp")
   reviews   Review[]
   createdAt   DateTime    @default(now())
 }

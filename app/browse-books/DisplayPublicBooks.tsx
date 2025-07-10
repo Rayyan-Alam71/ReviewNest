@@ -72,11 +72,11 @@ function BookCardForBrowseBook({ name, author, description, imageUrl, bookId } :
       </div>
       
       {/* Content section - Responsive padding and text sizes */}
-      <div className="w-full flex flex-col items-start p-2 sm:p-3 gap-1 flex-1">
-        <h2 className="font-bold text-sm sm:text-base text-gray-800 w-full break-words whitespace-pre-line">{name}</h2>
-        <h4 className="font-medium text-xs sm:text-xs text-gray-600 w-full break-words whitespace-pre-line">by {author}</h4>
-        <p className="text-xs sm:text-xs text-gray-600 leading-tight w-full whitespace-pre-line">
-          {displayedDescription}
+      <div className="w-full flex flex-col items-start p-2 sm:p-3 gap-2 flex-1">
+        <h2 className="font-bold text-sm sm:text-base text-gray-800 w-full break-words whitespace-pre-line">{name.charAt(0).toUpperCase() + name.slice(1)}</h2>
+        <h4 className="font-medium md:text-sm text-xs text-gray-700 w-full break-words whitespace-pre-line">by {author.charAt(0).toUpperCase() + author.slice(1)}</h4>
+        <p className="text-xs sm:text-xs text-gray-700 leading-tight w-full whitespace-pre-line">
+          {displayedDescription.charAt(0).toUpperCase() + displayedDescription.slice(1)}
         </p>
         
         {/* Button container - Responsive positioning */}

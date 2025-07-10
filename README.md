@@ -69,3 +69,9 @@ MIT
 
 
 
+
+
+<!-- TODO -->
+Image upload functionality
+Begin the names with capital
+text- color of descrition should be little darker

@@ -19,12 +19,12 @@ const ReviewDisplay = ({ bookId } : {bookId : string}) => {
   const [reviews, setReviews ] = useState<any>([])
   const [reviewContent, setReviewContent ] = useState<string>("")
   const [bookDetail, setBookDetail] = useState({
-    book_name: "Sapiens: A Brief History of Humankind",
+    book_name: "Book Name",
     id: "1",
     userId: "user123",
-    author_name: "Yuval Noah Harari",
-    imageUrl: "https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=400&h=600&fit=crop",
-    description: "From a renowned historian comes a groundbreaking narrative of humanity's creation and evolution—a #1 international bestseller—that explores the ways in which biology and history have defined us and enhanced our understanding of what it means to be human. One hundred thousand years ago, at least six different species of humans inhabited Earth. Yet today there is only one—homo sapiens. What happened to the others? And what may happen to us?",
+    author_name: "Anonymous",
+    imageUrl: "https://dhmckee.com/wp-content/uploads/2018/11/defbookcover-min.jpg",
+    description: "This is the default description",
     reviews :[{
       content : "sample"
     }]
@@ -43,7 +43,7 @@ const ReviewDisplay = ({ bookId } : {bookId : string}) => {
   },[loadPage])
   return (
     <div className='w-full bg-gray-50'>
-      <div className='py-14 mx-10 flex flex-col lg:flex-row justify-center items-center  gap-12 h-screen overflow-y-auto'>
+      <div className='py-14 mx-10 flex flex-col lg:flex-row justify-center   gap-12 overflow-y-auto'>
         {/* Left Half - Book Details */}
         <div className='w-full lg:w-1/2 flex flex-col items-center overflow-y-auto'>
           <BookDetailCard
@@ -115,7 +115,7 @@ function BookDetailCard({ name, author, description, imageUrl } : any) {
       <div className="w-full flex flex-col items-start p-6 gap-3">
         <h2 className="font-bold text-xl text-gray-800 w-full break-words">{name.charAt(0).toUpperCase() + name.slice(1)}</h2>
         <h4 className="font-medium text-sm text-gray-600 w-full break-words">by {author.charAt(0).toUpperCase() + author.slice(1)}</h4>
-        <p className="text-sm text-gray-600 leading-relaxed w-full whitespace-pre-line">
+        <p className="text-sm text-gray-800 leading-relaxed w-full whitespace-pre-line">
           {displayedDescription.charAt(0).toUpperCase() + displayedDescription.slice(1)}
         </p>
         {isLongDescription && (
