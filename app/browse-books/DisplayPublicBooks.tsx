@@ -4,17 +4,19 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Book } from '@prisma/client';
 import Link from 'next/link';
+import SearchBar from '@/components/SearchBar';
 
 
-export const DisplayPublicBooks = ({ books } : {books : Book[]}) => {
+export const DisplayPublicBooks = ({ books , searchQuery} : {books : Book[], searchQuery : string}) => {
   return (
     <>
+        <SearchBar searchQuery={searchQuery}/>
+        
       {/* Add Book Button - Responsive positioning */}
-      <div className='w-full flex justify-end px-4 sm:px-6 lg:px-16 pt-4 sm:pt-6'>
-        <Button size="sm" className="cursor-pointer text-xs sm:text-sm bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg hover:from-indigo-500 hover:to-purple-500 hover:shadow-xl transition-all duration-200 rounded-lg px-3 sm:px-5 py-2 sm:py-2.5 font-medium">
-          <Link href={'/add-book'}>Add Book</Link>
-        </Button>
-      </div>
+      {/* <div className='w-full flex justify-end px-4 sm:px-6 lg:px-16 pt-4 sm:pt-6'>
+        
+        
+      </div> */}
       
       {/* Books Grid - Responsive layout */}
       <div className='w-full h-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 sm:gap-6 py-6 sm:py-12 lg:py-18 px-4 sm:px-6 md:px-8 lg:px-16 '>

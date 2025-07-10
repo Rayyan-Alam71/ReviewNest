@@ -5,19 +5,57 @@ import { authOptions } from "@/lib/auth"
 import { getServerSession } from "next-auth"
 import { unstable_noStore } from "next/cache"
 
-export const getBooks = async () =>{
+export const getBooks = async (searchQuery : string | undefined) =>{
     unstable_noStore();
     // @ts-ignore
-    const session = await getServerSession(authOptions)
-    if(!session?.user) throw new Error("User not authenticated")
     
     try{
-        const books = await prisma.book.findMany({
-            orderBy : {
-                createdAt  :'desc'
-            }
-        })
-        return books;
+        console.log(searchQuery)
+        if(!searchQuery || searchQuery === ''){
+            const books = await prisma.book.findMany({
+                orderBy:{
+                    createdAt : 'desc'
+                }
+            })
+            return books;
+        }
+        else{
+            // return the books that matches to the searchQuery
+            const requestedBooks = await prisma.book.findMany({
+                where : {
+                    OR : [
+                        {
+                            book_name : {
+                                contains : `%${searchQuery}%`,
+                                mode : 'insensitive'
+                            }
+                        },
+                        {
+                           description :{
+                                contains : `%${searchQuery}%`,
+                                mode : 'insensitive'
+                           }
+                        },
+                        {
+                            author_name : {
+                                contains  : `%${searchQuery}%`,
+                                mode : 'insensitive'
+                            }
+                        } 
+                    ]
+                },
+                orderBy : {
+                    createdAt : 'desc'
+                }
+            })
+            return requestedBooks;
+        }
+        // const books = await prisma.book.findMany({
+        //     orderBy : {
+        //         createdAt  :'desc'
+        //     }
+        // })
+        // return books;
     }catch(e){
         console.log("Error  occurred in getBooks : "+ e)
         throw new Error("Error while retrieving books")

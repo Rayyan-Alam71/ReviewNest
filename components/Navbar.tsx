@@ -9,7 +9,7 @@ export default function NavBar(){
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
     return(
-        <nav className="sticky top-0 z-50 bg-gradient-to-br from-slate-50 via-indigo-50 to-purple-50">
+        <nav className="sticky top-0 z-50 bg-gradient-to-br from-slate-100 via-indigo-50 to-purple-100">
             <div className="container mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
                 <div className="w-full flex justify-between items-center py-3 sm:py-4">
                     {/* Logo Section */}
@@ -142,7 +142,7 @@ function AvatarIcon({imageUrl} : {imageUrl : string}){
     return (
         <Avatar className="w-6 h-6 sm:w-7 sm:h-7">
             <AvatarImage src={imageUrl} />
-            <AvatarFallback className="text-xs sm:text-sm">CN</AvatarFallback>
+            <AvatarFallback className="text-xs sm:text-sm text-indigo-500">CN</AvatarFallback>
         </Avatar>
     )
 }

@@ -34,6 +34,7 @@ const ReviewDisplay = ({ bookId } : {bookId : string}) => {
     async function fetch(){
         setReviewLoading(true)
         const details : any = await getBookDetail(bookId)
+        console.log(details.reviews)
         console.log(details)
         setBookDetail(details)
         setReviewLoading(false)
@@ -148,6 +149,7 @@ function ReviewCard({ review } :any) {
     <Card className="p-4 border border-gray-200 bg-white shadow-sm ">
       <div className="flex items-center justify-between mb-2">
         <div className="flex items-center gap-2">
+          {/* <img src={review.} alt="user" /> */}
           <h4 className="font-semibold text-sm text-gray-600">{review.creatorName.charAt(0).toUpperCase()+review.creatorName.slice(1) || "anonymous"}</h4>
           {/* <div className="flex">
             {renderStars(review.rating)}
