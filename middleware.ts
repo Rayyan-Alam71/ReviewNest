@@ -4,6 +4,7 @@ export const config =   {
     matcher : [
         '/review/:bookId',
         '/my-books',
-        '/browse-books'
+        '/browse-books',
+        '/add-book'
     ]
 };
