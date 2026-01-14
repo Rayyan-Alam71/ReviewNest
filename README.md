@@ -56,6 +56,7 @@ reviewnest/
 ├── tsconfig.json         # TypeScript configuration
 └── README.md             # This file
 
+```
 ## Setup & Local Development
 
 ### Prerequisites
