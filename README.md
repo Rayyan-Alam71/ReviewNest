@@ -71,26 +71,26 @@ reviewnest/
 ```bash
 git clone https://github.com/YourUsername/reviewnest.git
 cd reviewnest
-
+```
 2. Install the dependencies
-
+```bash
 npm install
 # or
 yarn install
-
+```
 3. Setup env variables in .env file
-
+```bash
 DATABASE_URL="YOUR_POSTGRESQL_DATABASE_URL"
 NEXTAUTH_SECRET="YOUR_NEXTAUTH_SECRET"
 NEXTAUTH_URL="http://localhost:3000"
 GOOGLE_CLIENT_ID="YOUR_GOOGLE_CLIENT_ID"
 GOOGLE_CLIENT_SECRET="YOUR_GOOGLE_CLIENT_SECRET"
-
+```
 4. Initialize Prisma
-
+```bash
 npx prisma generate
 npx prisma db push
-
+```
 5. Open http://localhost:3000 in your browser
 
 ## Live Demo
