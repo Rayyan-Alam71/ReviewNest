@@ -1,77 +1,57 @@
-## Book Review App Starter Template
+# ReviewNest — Full-Stack Book Review Platform
 
->This is a starter template for a Book Review web app using **Next.js**, **Prisma**, and **NextAuth.js**. Easily adaptable for your own projects!
-
----
-
-### Features
-- Next.js 14 App Router
-- Prisma ORM (with PostgreSQL)
-- NextAuth.js authentication (Google provider)
-- Environment variable support
+[![Vercel](https://img.shields.io/badge/Deployed-Vercel-blue)](https://reviewnest.vercel.app)  
+[![GitHub](https://img.shields.io/badge/GitHub-Repo-black?logo=github)](https://github.com/YourUsername/reviewnest)
 
 ---
 
-## Getting Started
+## Overview
 
-### 1. Clone the repository
-```bash
-git clone <your-repo-url>
-cd book-review
-```
+ReviewNest is a **modular full-stack platform** designed to help developers quickly set up a book review application. Users can authenticate via Google, browse books, submit reviews, and discover new reads based on community feedback.  
 
-### 2. Install dependencies
-```bash
-npm install
-```
-
-### 3. Set up environment variables
-
-Copy `.env.sample` to `.env` and fill in your credentials:
-```bash
-cp .env.sample .env
-```
-
-Edit `.env`:
-- `DATABASE_URL` – Your PostgreSQL connection string
-- `GOOGLE_CLIENT_ID` – Google OAuth client ID
-- `GOOGLE_CLIENT_SECRET` – Google OAuth client secret
-- `NEXTAUTH_SECRET` – A random string for NextAuth session encryption (use `openssl rand -base64 32` to generate one)
-
-### 4. Set up the database
-```bash
-npx prisma migrate dev --name init
-```
-
-### 5. Start the development server
-```bash
-npm run dev
-```
+The project is intentionally **minimal and extensible**, making it an ideal foundation for personal projects, portfolios, or small-scale reading communities. While the live deployment currently features a **static landing page**, the architecture is ready for full interactive functionality.
 
 ---
 
-## Useful Commands
-- `npx prisma studio` – Open Prisma Studio to view/edit your database
-- `npx prisma generate` – Regenerate Prisma client
+## Core Features
+
+- **User Authentication:** Google OAuth via NextAuth.js with secure session handling  
+- **Protected & Public Routes:** Server-side route protection for adding books and reviews  
+- **Database Integration:** Type-safe operations using Prisma ORM and PostgreSQL  
+- **Modular Project Structure:**  
+  - `actions/` — Server Actions (form handling, CRUD operations)  
+  - `components/` — Reusable UI components  
+  - `hooks/` — Custom React hooks for logic abstraction  
+  - `lib/` & `db/` — Utilities and Prisma client  
+- **Extensible Architecture:** Ready for book listing, search, reviews, user profiles, and additional features  
+- **Vercel-Optimized Deployment:** Fast, scalable hosting with static landing page
 
 ---
 
-## Folder Structure
-- `/app` – Next.js app directory
-- `/prisma` – Prisma schema and migrations
-- `/db/prisma.ts` – Prisma client instance
-- `/app/api/auth/[...nextauth]/route.ts` – NextAuth.js API route
+## Tech Stack
+
+- **Frontend & Framework:** Next.js 14 (App Router), TypeScript  
+- **Backend & Database:** Prisma ORM, PostgreSQL  
+- **Authentication:** NextAuth.js (Google provider)  
+- **Styling & UI:** Tailwind CSS, ShadCN/UI  
+- **Deployment:** Vercel  
+- **Architecture Concepts:** Server Actions, Modular Component Design, Protected Routes  
 
 ---
 
-## License
-MIT
+## Project Structure
 
-
-
-
-
-<!-- TODO -->
-Image upload functionality
-Begin the names with capital
-text- color of descrition should be little darker
+```text
+reviewnest/
+├── app/                  # Next.js App Router pages, layouts, and API routes
+├── actions/              # Server Actions for handling form submissions & DB operations
+├── components/           # Reusable React components
+├── hooks/                # Custom React hooks
+├── lib/                  # Utilities and helper functions
+├── db/                   # Prisma client & database utilities
+├── prisma/               # Prisma schema & migrations
+├── public/               # Static assets (images, icons)
+├── middleware.ts         # Route protection & authentication middleware
+├── package.json          # Project dependencies
+├── tsconfig.json         # TypeScript configuration
+└── README.md             # This file
