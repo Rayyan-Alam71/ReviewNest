@@ -55,3 +55,43 @@ reviewnest/
 ├── package.json          # Project dependencies
 ├── tsconfig.json         # TypeScript configuration
 └── README.md             # This file
+
+## Setup & Local Development
+
+### Prerequisites
+- Node.js v18+
+- npm or Yarn
+- PostgreSQL database
+- Google OAuth credentials (for NextAuth.js)
+
+### Installation
+
+1. **Clone the repository:**
+```bash
+git clone https://github.com/YourUsername/reviewnest.git
+cd reviewnest
+
+2. Install the dependencies
+
+npm install
+# or
+yarn install
+
+3. Setup env variables in .env file
+
+DATABASE_URL="YOUR_POSTGRESQL_DATABASE_URL"
+NEXTAUTH_SECRET="YOUR_NEXTAUTH_SECRET"
+NEXTAUTH_URL="http://localhost:3000"
+GOOGLE_CLIENT_ID="YOUR_GOOGLE_CLIENT_ID"
+GOOGLE_CLIENT_SECRET="YOUR_GOOGLE_CLIENT_SECRET"
+
+4. Initialize Prisma
+
+npx prisma generate
+npx prisma db push
+
+5. Open http://localhost:3000 in your browser
+
+## Live Demo
+
+https://www.review-nest-app.vercel.app/
